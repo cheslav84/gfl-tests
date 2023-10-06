@@ -1,5 +1,6 @@
 package havryliuk;
 
+import org.assertj.core.data.Offset;
 import org.assertj.core.data.Percentage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -10,6 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 
 
 public class MainTest {
+    private static final double EPS = 10e-6;
     private Main solver;
 
     @BeforeMethod
@@ -70,6 +72,19 @@ public class MainTest {
 
 
 
+    @Test(dataProvider = "testDataFillArray")
+    public void testFillArray(double start, double end, double interval, double[] arr) {
+        assertThat(solver.fillArray(start, end, interval))
+                .containsExactly(arr, Offset.offset(EPS))
+                .startsWith(start)
+                .isSorted()
+                .doesNotHaveDuplicates()
+                .doesNotContain(start - interval, end + interval)
+        ;
+    }
+
+
+
 
 
 
@@ -107,16 +122,21 @@ public class MainTest {
                 { 0, 11, 2, 6 },
 
                 { -10, 0, 2, 6 },
-                { -10, 0, 2, 6 },
+                { -11, 0, 2, 6 },
 
                 { -10, 10, 2, 11 },
                 { -10, 11, 2, 11 },
+                { -11, 11, 2, 12 },
 
                 { 0, 0, 0.1, 1 },
                 { 0, 5, 10, 1 },
 
-                { 0, 1, 0.2, 6 },
+                { 0, 1.1, 0.1, 12 },
                 { 0, 1.1, 0.2, 6 },
+                { 0, 1.1, 0.3, 4 },
+                { 0, 1.1, 0.4, 3 },
+                { 0, 1.1, 0.5, 3 },
+                { 0, 1.1, 0.6, 2 },
 
                 { -1, 0, 0.2, 6 },
                 { -1, 1, 0.2, 11 },
@@ -177,17 +197,35 @@ public class MainTest {
 
 
 
+    @DataProvider(name = "testDataFillArray")
+    private Object[][] dataFillingArray() {
+        return new Object[][] {
+//               start, end, interval, array
+                { 0, 1, 1, new double[]{0, 1} },
+                { 0, 2, 1, new double[]{0, 1, 2} },
+                { 1, 10, 1, new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}  },
 
-//    @DataProvider(name = "solveFunction1")
-//    public Object[][] dataForRandomValues2() {
-//        return new Object[][] {
-//                { 0, 4 },
-//                { 1.4, 3.649036482 },
-//                { 2, 0.939148551 },
-//        };
-//    }
+                { 0, 10, 2, new double[]{0, 2, 4, 6, 8, 10} },
+                { 0, 11, 2, new double[]{0, 2, 4, 6, 8, 10} },
 
+                { 0, 0, 0.1, new double[]{0} },
+                { 0, 5, 10, new double[]{0} },
 
+                { 0, 1.1, 0.1, new double[]{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1} },
+                { 0, 1.1, 0.2, new double[]{0, 0.2, 0.4, 0.6, 0.8, 1.0} },
+                { 0, 1.1, 0.3, new double[]{0, 0.3, 0.6, 0.9} },
+                { 0, 1.1, 0.4, new double[]{0, 0.4, 0.8} },
+                { 0, 1.1, 0.5, new double[]{0, 0.5, 1.0} },
+                { 0, 1.1, 0.6, new double[]{0, 0.6} },
+
+                { -1.1, 0, 0.1, new double[]{-1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0} },
+                { -1.1, 0, 0.2, new double[]{-1.1, -0.9, -0.7, -0.5, -0.3, -0.1} },
+                { -1.1, 0, 0.3, new double[]{-1.1, -0.8, -0.5, -0.2} },
+                { -1.1, 0, 0.4, new double[]{-1.1, -0.7, -0.3} },
+                { -1.1, 0, 0.5, new double[]{-1.1, -0.6, -0.1} },
+                { -1.1, 0, 0.6, new double[]{-1.1, -0.5} },
+        };
+    }
 
 
 

@@ -1,6 +1,8 @@
 package havryliuk;
 
 
+import java.util.stream.IntStream;
+
 public class Main {
     private static final double A = 2.7;
     private static final double B = -0.3;
@@ -18,8 +20,17 @@ public class Main {
     public int getArraySize(double start, double end, double interval) {
         if (start > end) throw new IllegalArgumentException("The start of array can't be larger than the end of it.");
         if (interval <= 0) throw new IllegalArgumentException("Interval should be greater than 0.");
+//        return (int) Math.floor((end - start)/interval) + 1;
         return (int) ((end - start)/interval + 1);
    }
+
+
+    public double[] fillArray(double start, double end, double interval) {
+        int size = getArraySize(start, end, interval);
+        return IntStream.range(0, size)
+                .mapToDouble(i -> start + i * interval)
+                .toArray();
+    }
 
 
 
