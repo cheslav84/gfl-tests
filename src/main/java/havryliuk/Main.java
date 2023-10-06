@@ -1,10 +1,5 @@
 package havryliuk;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Main {
     private static final double A = 2.7;
@@ -20,14 +15,11 @@ public class Main {
         return x < 1.4 ? solveFirst(x) : x == 1.4 ? solveSecond(x) : solveThird(x);
     }
 
-    public int getStepsAmount(double start, double end, double interval) {
+    public int getArraySize(double start, double end, double interval) {
+        if (start > end) throw new IllegalArgumentException("The start of array can't be larger than the end of it.");
+        if (interval <= 0) throw new IllegalArgumentException("Interval should be greater than 0.");
         return (int) ((end - start)/interval + 1);
    }
-
-
-
-
-
 
 
 

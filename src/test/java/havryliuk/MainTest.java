@@ -5,16 +5,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-//import static org.testng.Assert.*;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.*;
 
 
 public class MainTest {
-    private static final double EPS = 10e-6;
     private Main solver;
 
     @BeforeMethod
@@ -23,8 +18,8 @@ public class MainTest {
     }
 
 
-    @Test(dataProvider = "solveFunction")
-    public void testSolveFunction(double x, double y) {
+    @Test(dataProvider = "testDataSolveFunction")
+    public void solveFunctionPositive(double x, double y) {
         assertThat(solver.solveFunction(x)).isCloseTo(y, Percentage.withPercentage(0.3));
     }
 
@@ -48,17 +43,38 @@ public class MainTest {
 
 
 
-    @Test(dataProvider = "calculateSteps")
-    public void testGetStepsAmount(double start, double end, double interval, int steps) {
-        assertThat(solver.getStepsAmount(start, end, interval)).isEqualTo(steps);
+    @Test(dataProvider = "testDataArraySize")
+    public void testArraySize(double start, double end, double interval, int steps) {
+        assertThat(solver.getArraySize(start, end, interval)).isEqualTo(steps);
+    }
+
+    @Test(dataProvider = "testDataArraySizeNegative")
+    public void testArraySizeNegative(double start, double end, double interval, int steps) {
+        assertThat(solver.getArraySize(start, end, interval)).isNotEqualTo(steps);
+    }
+
+    @Test(dataProvider = "testDataArraySizeStartLargerEndException")
+    public void testArraySizeStartLargerEndException(double start, double end, double interval) {
+        assertThatThrownBy(() -> solver.getArraySize(start, end, interval))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("The start of array can't be larger than the end of it.");
+    }
+
+    @Test(dataProvider = "testDataArraySizeIntervalNegativeOrZeroException")
+    public void testArraySizeIntervalNegativeOrZeroException(double start, double end, double interval) {
+        assertThatThrownBy(() -> solver.getArraySize(start, end, interval))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Interval should be greater than 0.");
     }
 
 
 
 
 
-    @DataProvider(name = "solveFunction")
-    private Object[][] dataForRandomArguments() {
+
+
+    @DataProvider(name = "testDataSolveFunction")
+    private Object[][] dataForSolveFunction() {
         return new Object[][] {
                 { -1000000, 2700000300004.0 },
                 { -100, 27034 },
@@ -78,8 +94,8 @@ public class MainTest {
     }
 
 
-    @DataProvider(name = "calculateSteps")
-    private Object[][] dataCalculatingSteps() {
+    @DataProvider(name = "testDataArraySize")
+    private Object[][] dataArraySize() {
         return new Object[][] {
 //          start, end, interval, steps
                 { 0, 1, 1, 2 },
@@ -103,9 +119,6 @@ public class MainTest {
                 { 0, 1.1, 0.2, 6 },
 
                 { -1, 0, 0.2, 6 },
-                { -1, 0, 0.2, 6 },
-
-                { -1, 1, 0.2, 11 },
                 { -1, 1, 0.2, 11 },
 
                 { 0, 2, 0.002, 1001 },
@@ -115,6 +128,64 @@ public class MainTest {
 
 
 
+    @DataProvider(name = "testDataArraySizeNegative")
+    private Object[][] dataArraySizeNegative() {
+        return new Object[][] {
+//          start, end, interval, steps
+                { 0, 1, 1, 1 },
+                { 0, 2, 1, 2 },
+                { 1, 10, 1, 11 },
+                { 0, 1000, 1, 1000 },
+
+                { 0, 10, 2, 5 },
+                { 0, 10, 2, 7 },
+                { 0, 11, 2, 5 },
+                { 0, 11, 2, 7 },
+
+                { 0, 0, 0.1, 0 },
+                { 0, 0, 0.1, 2 },
+
+                { -1, 0, 0.2, 7 },
+                { -1, 0, 0.2, 8 },
+
+                { 0, 2, 0.002, 1000 },
+
+        };
+    }
+
+    @DataProvider(name = "testDataArraySizeStartLargerEndException")
+    private Object[][] dataArraySizeStartLargerEndException() {
+        return new Object[][] {
+//          start, end, interval,
+                { 1, 0, 1},
+                { 1, -1, 1},
+                { 0, -1, 1},
+                { 1, -1, 1},
+        };
+    }
+
+    @DataProvider(name = "testDataArraySizeIntervalNegativeOrZeroException")
+    private Object[][] dataArraySizeIntervalNegativeOrZeroException() {
+        return new Object[][] {
+//          start, end, interval,
+                { 0, 1, 0},
+                { 1, 2, -1},
+                { 1, 5, -10},
+
+        };
+    }
+
+
+
+
+//    @DataProvider(name = "solveFunction1")
+//    public Object[][] dataForRandomValues2() {
+//        return new Object[][] {
+//                { 0, 4 },
+//                { 1.4, 3.649036482 },
+//                { 2, 0.939148551 },
+//        };
+//    }
 
 
 
