@@ -40,6 +40,13 @@ public class Main {
                 .toArray();
     }
 
+    public double getMaxValue (double[] functionValues) {
+        return -1;
+    }
+
+
+
+
 
 
 
