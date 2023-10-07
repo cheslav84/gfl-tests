@@ -1,6 +1,7 @@
 package havryliuk;
 
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Main {
@@ -25,10 +26,17 @@ public class Main {
    }
 
 
-    public double[] fillArray(double start, double end, double interval) {
+    public double[] getArgumentsArray(double start, double end, double interval) {
         int size = getArraySize(start, end, interval);
         return IntStream.range(0, size)
                 .mapToDouble(i -> start + i * interval)
+                .toArray();
+    }
+
+    public double[] getFunctionValuesArray (double[] arguments) {
+        if(arguments == null) throw new IllegalArgumentException("Array of arguments is null.");
+        return Arrays.stream(arguments)
+                .map(this::solveFunction)
                 .toArray();
     }
 

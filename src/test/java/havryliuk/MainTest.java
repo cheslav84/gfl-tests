@@ -72,9 +72,9 @@ public class MainTest {
 
 
 
-    @Test(dataProvider = "testDataFillArray")
-    public void testFillArray(double start, double end, double interval, double[] arr) {
-        assertThat(solver.fillArray(start, end, interval))
+    @Test(dataProvider = "testDataGetArgumentsArray")
+    public void testGetArgumentsArray(double start, double end, double interval, double[] arr) {
+        assertThat(solver.getArgumentsArray(start, end, interval))
                 .containsExactly(arr, Offset.offset(EPS))
                 .startsWith(start)
                 .isSorted()
@@ -84,6 +84,19 @@ public class MainTest {
     }
 
 
+    @Test(dataProvider = "testDataGetFunctionValuesArray")
+    public void testGetFunctionValuesArray(double[] arguments, double[] functionValues) {
+        assertThat(solver.getFunctionValuesArray(arguments))
+                .containsExactly(functionValues, Offset.offset(EPS));
+    }
+
+
+    @Test
+    public void testGetFunctionValuesArrayException() {
+        assertThatThrownBy(() -> solver.getFunctionValuesArray(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array of arguments is null.");
+    }
 
 
 
@@ -197,8 +210,8 @@ public class MainTest {
 
 
 
-    @DataProvider(name = "testDataFillArray")
-    private Object[][] dataFillingArray() {
+    @DataProvider(name = "testDataGetArgumentsArray")
+    private Object[][] dataGetArgumentsArray() {
         return new Object[][] {
 //               start, end, interval, array
                 { 0, 1, 1, new double[]{0, 1} },
@@ -224,6 +237,27 @@ public class MainTest {
                 { -1.1, 0, 0.4, new double[]{-1.1, -0.7, -0.3} },
                 { -1.1, 0, 0.5, new double[]{-1.1, -0.6, -0.1} },
                 { -1.1, 0, 0.6, new double[]{-1.1, -0.5} },
+        };
+    }
+
+
+    @DataProvider(name = "testDataGetFunctionValuesArray")
+    private Object[][] dataGetFunctionValuesArray() {
+        return new Object[][] {
+//               start, end, interval, array
+                { new double[]{0, 1.4, 1.998}, new double[]{4, 3.649037, 0.940169} },
+                { new double[]{0}, new double[]{4} },
+                { new double[]{0, 1}, new double[]{4, 6.4} },
+                { new double[]{0, 1, 1.4, 2}, new double[]{4, 6.4, 3.649037, 0.939148} },
+
+                { new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                        new double[]{ 6.4, 0.939148, 0.569210, 0.363803, 0.235339, 0.147959, 0.084853, 0.037210, 0, -0.029851} },
+
+                { new double[]{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1},
+                        new double[]{4, 3.997, 4.048, 4.153, 4.312, 4.525, 4.792, 5.113, 5.488, 5.917, 6.4, 6.937} },
+
+                { new double[]{-1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0},
+                        new double[]{7.597, 7, 6.457, 5.968, 5.533, 5.152, 4.825, 4.552, 4.333, 4.168, 4.057, 4} },
         };
     }
 
