@@ -41,9 +41,25 @@ public class Main {
     }
 
     public double getMaxValue (double[] functionValues) {
-        return -1;
+        if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
+        return Arrays.stream(functionValues).max().orElseThrow(() -> new IllegalArgumentException("Array is empty."));
     }
 
+
+    public double getMinValue (double[] functionValues) {
+        if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
+        return Arrays.stream(functionValues).min().orElseThrow(() -> new IllegalArgumentException("Array is empty."));
+    }
+
+    public double getSumOfValues (double[] functionValues) {
+        if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
+        return Arrays.stream(functionValues).sum();
+    }
+
+    public double getAverage (double[] functionValues) {
+        if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
+        return Arrays.stream(functionValues).average().orElseThrow(() -> new IllegalArgumentException("Array is empty."));
+    }
 
 
 
@@ -65,5 +81,8 @@ public class Main {
         if (x > maxPossibleValue) throw new IllegalArgumentException("The argument is too large to be evaluated.");
         return (A + B * x) / Math.sqrt(Math.pow(x, 2) + 1);
     }
+
+
+
 
 }

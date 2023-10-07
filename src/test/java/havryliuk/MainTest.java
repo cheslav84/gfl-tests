@@ -91,11 +91,86 @@ public class MainTest {
 
 
     @Test
-    public void testGetFunctionValuesArrayException() {
+    public void testGetFunctionValuesArrayExceptionNull() {
         assertThatThrownBy(() -> solver.getFunctionValuesArray(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Array of arguments is null.");
     }
+
+
+    @Test(dataProvider = "testDataGetMaxValue", dataProviderClass = MainTestDataProvider.class)
+    public void testGetMaxValue(double[] functionValues, double maxValue) {
+        assertThat(solver.getMaxValue(functionValues)).isCloseTo(maxValue, Percentage.withPercentage(0.3));
+    }
+
+    @Test
+    public void testGetMaxValueExceptionNull() {
+        assertThatThrownBy(() -> solver.getMaxValue(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array of functionValues is null.");
+    }
+
+    @Test
+    public void testGetMaxValueExceptionEmpty() {
+        assertThatThrownBy(() -> solver.getMaxValue(new double[]{}))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array is empty.");
+    }
+
+    @Test(dataProvider = "testDataGetMinValue", dataProviderClass = MainTestDataProvider.class)
+    public void testGetMinValue(double[] functionValues, double maxValue) {
+        assertThat(solver.getMinValue(functionValues)).isCloseTo(maxValue, Percentage.withPercentage(0.3));
+    }
+
+    @Test
+    public void testGetMinValueExceptionNull() {
+        assertThatThrownBy(() -> solver.getMinValue(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array of functionValues is null.");
+    }
+
+    @Test
+    public void testGetMinValueExceptionEmpty() {
+        assertThatThrownBy(() -> solver.getMinValue(new double[]{}))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array is empty.");
+    }
+
+
+
+    @Test(dataProvider = "testDataGetSumOfValues", dataProviderClass = MainTestDataProvider.class)
+    public void testGetSumOfValues(double[] functionValues, double sum) {
+        assertThat(solver.getSumOfValues(functionValues)).isCloseTo(sum, Percentage.withPercentage(0.3));
+    }
+
+    @Test
+    public void testGetSumOfValuesExceptionNull() {
+        assertThatThrownBy(() -> solver.getSumOfValues(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array of functionValues is null.");
+    }
+
+
+
+    @Test(dataProvider = "testDataGetAvgValue", dataProviderClass = MainTestDataProvider.class)
+    public void testGetAvgValue(double[] functionValues, double maxValue) {
+        assertThat(solver.getAverage(functionValues)).isCloseTo(maxValue, Percentage.withPercentage(0.3));
+    }
+
+    @Test
+    public void testGetAvgValueExceptionNull() {
+        assertThatThrownBy(() -> solver.getAverage(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array of functionValues is null.");
+    }
+
+    @Test
+    public void testGetAvgValueExceptionEmpty() {
+        assertThatThrownBy(() -> solver.getAverage(new double[]{}))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Array is empty.");
+    }
+
 
 
 
