@@ -269,7 +269,7 @@ public class MainTestDataProvider {
     private static Object[][] dataPrintMinValueByIndex() {
         return new Object[][] {
 
-//               arguments, maxValue
+//               arguments, minValue
                 { new double[]{4, 3.649037, 0.940169}, 0.940169 },
                 { new double[]{0}, 0 },
                 { new double[]{4, 6.4, 4}, 4},
@@ -282,7 +282,7 @@ public class MainTestDataProvider {
     private static Object[][] dataPrintMinValueByIndexFailed() {
         return new Object[][] {
 
-//               arguments, maxValue
+//               arguments, minValue
                 { new double[]{4, 3.649037, 0.940169}, 3.649037 },
                 { new double[]{4, 6.4, 4}, 6.4},
                 { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 0 },

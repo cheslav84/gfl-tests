@@ -12,6 +12,23 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Main solver = new Main();
+
+        double start = 0;
+        double end = 2;
+        double interval = 0.005;
+
+        double[] argumentsArray = solver.getArgumentsArray(start, end, interval);
+        double[] functionValuesArray = solver.getFunctionValuesArray(argumentsArray);
+
+        int maxValueIndex = solver.getMaxValueIndex(functionValuesArray);
+        int minValueIndex = solver.getMinValueIndex(functionValuesArray);
+
+        solver.printMaxValue(functionValuesArray, maxValueIndex);
+        solver.printMinValue(functionValuesArray, minValueIndex);
+        System.out.println("The sum of function values is " + solver.getSumOfValues(functionValuesArray));
+        System.out.println("Average function value is " + solver.getAverage(functionValuesArray));
+
 
     }
 
@@ -68,20 +85,13 @@ public class Main {
 
 
     public void printMaxValue(double[] functionValues, int index) {
-        System.out.print(functionValues[index]);
+        System.out.println("Maximum of function values is " + functionValues[index]);
     }
 
 
     public void printMinValue(double[] functionValues, int index) {
-        System.out.print(functionValues[index]);
+        System.out.println("Minimum of function values is " + functionValues[index]);
     }
-
-
-
-
-
-
-
 
 
 

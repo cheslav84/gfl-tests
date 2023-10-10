@@ -178,7 +178,8 @@ public class MainTest {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMaxValueIndex(functionValues);
         solver.printMaxValue(functionValues, index);
-        assertThat(TestStreamProvider.getConsoleContent().toString()).isEqualTo(String.valueOf(maxValue));
+        String expected = "Maximum of function values is " + maxValue + System.lineSeparator();
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isEqualTo(expected);
         TestStreamProvider.tearDownOutputStream();
     }
 
@@ -187,7 +188,8 @@ public class MainTest {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMaxValueIndex(functionValues);
         solver.printMaxValue(functionValues, index);
-        assertThat(TestStreamProvider.getConsoleContent().toString()).isNotEqualTo(String.valueOf(maxValue));
+        String expected = "Maximum of function values is " + maxValue + System.lineSeparator();
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isNotEqualTo(expected);
         TestStreamProvider.tearDownOutputStream();
     }
 
@@ -198,7 +200,8 @@ public class MainTest {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMinValueIndex(functionValues);
         solver.printMinValue(functionValues, index);
-        assertThat(TestStreamProvider.getConsoleContent().toString()).isEqualTo(String.valueOf(minValue));
+        String expected = "Minimum of function values is " + minValue + System.lineSeparator();
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isEqualTo(expected);
         TestStreamProvider.tearDownOutputStream();
     }
 
@@ -208,7 +211,8 @@ public class MainTest {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMinValueIndex(functionValues);
         solver.printMinValue(functionValues, index);
-        assertThat(TestStreamProvider.getConsoleContent().toString()).isNotEqualTo(String.valueOf(minValue));
+        String expected = "Minimum of function values is " + minValue + System.lineSeparator();
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isNotEqualTo(expected);
         TestStreamProvider.tearDownOutputStream();
     }
 
