@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Main {
+    private static final double EPS = 1e-6;
     private static final double A = 2.7;
     private static final double B = -0.3;
     private static final double C = 4.0;
@@ -15,13 +16,13 @@ public class Main {
     }
 
     public double solveFunction(double x) {
-        return x < 1.4 ? solveFirst(x) : x == 1.4 ? solveSecond(x) : solveThird(x);
+        return x < 1.4 - EPS ? solveFirst(x) : x > 1.4 + EPS ? solveThird(x) : solveSecond(x);
     }
 
     public int getArraySize(double start, double end, double interval) {
         if (start > end) throw new IllegalArgumentException("The start of array can't be larger than the end of it.");
         if (interval <= 0) throw new IllegalArgumentException("Interval should be greater than 0.");
-//        return (int) Math.floor((end - start)/interval) + 1;
+//        return (int) (Math.round(end - start)/interval) + 1;
         return (int) ((end - start)/interval + 1);
    }
 
@@ -40,15 +41,19 @@ public class Main {
                 .toArray();
     }
 
-    public double getMaxValue (double[] functionValues) {
+    public int getMaxValueIndex(double[] functionValues) {
         if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
-        return Arrays.stream(functionValues).max().orElseThrow(() -> new IllegalArgumentException("Array is empty."));
+        return IntStream.range(0, functionValues.length)
+                .reduce((a,b) -> functionValues[a] < functionValues[b] ? b : a)
+                .orElseThrow(() -> new IllegalArgumentException("Array is empty."));
     }
 
 
-    public double getMinValue (double[] functionValues) {
+    public int getMinValueIndex(double[] functionValues) {
         if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
-        return Arrays.stream(functionValues).min().orElseThrow(() -> new IllegalArgumentException("Array is empty."));
+        return IntStream.range(0, functionValues.length)
+                .reduce((a,b) -> functionValues[a] > functionValues[b] ? b : a)
+                .orElseThrow(() -> new IllegalArgumentException("Array is empty."));
     }
 
     public double getSumOfValues (double[] functionValues) {
@@ -60,6 +65,20 @@ public class Main {
         if(functionValues == null) throw new IllegalArgumentException("Array of functionValues is null.");
         return Arrays.stream(functionValues).average().orElseThrow(() -> new IllegalArgumentException("Array is empty."));
     }
+
+
+    public void printMaxValue(double[] functionValues, int index) {
+        System.out.print(functionValues[index]);
+    }
+
+
+    public void printMinValue(double[] functionValues, int index) {
+        System.out.print(functionValues[index]);
+    }
+
+
+
+
 
 
 

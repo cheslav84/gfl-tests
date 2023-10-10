@@ -170,39 +170,39 @@ public class MainTestDataProvider {
 
 
 
-    @DataProvider(name = "testDataGetMaxValue")
-    private static Object[][] dataGetMaxValue() {
+    @DataProvider(name = "testDataGetMaxValueIndex")
+    private static Object[][] dataGetMaxValueIndex() {
         return new Object[][] {
-//               array, maxValue
-                { new double[]{4, 3.649037, 0.940169}, 4 },
-                { new double[]{4}, 4},
+//               array, maxValueIndex
+                { new double[]{4, 3.649037, 0.940169}, 0 },
+                { new double[]{4}, 0},
                 { new double[]{0}, 0 },
-                { new double[]{4, 6.4}, 6.4},
-                { new double[]{6.4, 4, 6.4}, 6.4},
-                { new double[]{4, 6.4, 3.649037, 0.939148}, 6.4 },
-                { new double[]{6.4, 0.939148, 0.569210, 0.363803, 0.147959, 0.084853, 0.037210, 0, -0.029851}, 6.4 },
-                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 6.4 },
-                { new double[]{-3.997, -4.153, -4, -4.312, -6.937,  -5.113,  -5.917, -6.4}, -3.997 },
-                { new double[]{-3.997, -4.153, -4, 0, -4.312, -6.937,  -5.113,  -5.917, -6.4}, 0 },
-                { new double[]{7, 6.457, 5.533, 7.597, 4.825, 4.552, 4.333, 4.168, 4.057, 5.968, 4, 5.152}, 7.597 },
+                { new double[]{4, 6.4}, 1},
+                { new double[]{6.4, 4, 6.4}, 0},
+                { new double[]{4, 6.4, 3.649037, 0.939148}, 1 },
+                { new double[]{6.4, 0.939148, 0.569210, 0.363803, 0.147959, 0.084853, 0.037210, 0, -0.029851}, 0 },
+                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 2 },
+                { new double[]{-3.997, -4.153, -4, -4.312, -6.937,  -5.113,  -5.917, -6.4}, 0 },
+                { new double[]{-3.997, -4.153, -4, 0, -4.312, -6.937,  -5.113,  -5.917, -6.4}, 3 },
+                { new double[]{7, 6.457, 5.533, 7.597, 4.825, 4.552, 4.333, 4.168, 4.057, 5.968, 4, 5.152}, 3 },
         };
     }
 
-    @DataProvider(name = "testDataGetMinValue")
-    private static Object[][] dataGetMinValue() {
+    @DataProvider(name = "testDataGetMinValueIndex")
+    private static Object[][] dataGetMinValueIndex() {
         return new Object[][] {
 //               array, minValue
-                { new double[]{4, 3.649037, 0.940169}, 0.940169 },
-                { new double[]{4}, 4},
+                { new double[]{4, 3.649037, 0.940169}, 2 },
+                { new double[]{4}, 0},
                 { new double[]{0}, 0 },
-                { new double[]{4, 6.4}, 4},
-                { new double[]{4, 6.4, 4,}, 4},
-                { new double[]{4, 6.4, 3.649037, 0.939148}, 0.939148 },
-                { new double[]{6.4, 0.939148, 0.569210, 0.363803, 0.147959, 0.084853, 0.037210, 0, -0.029851}, -0.029851 },
-                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, -0.029851 },
-                { new double[]{-3.997, -4.153, -4, -4.312, -6.937,  -5.113,  -5.917, -6.4}, -6.937 },
-                { new double[]{-3.997, -4.153, -4, 0, -4.312, -6.937,  -5.113,  -5.917, -6.4}, -6.937 },
-                { new double[]{7, 6.457, 5.533, 7.597, 4.825, 4.552, 4.333, 4.168, 4.057, 5.968, 4, 5.152}, 4 },
+                { new double[]{4, 6.4}, 0},
+                { new double[]{4, 6.4, 4,}, 0},
+                { new double[]{4, 6.4, 3.649037, 0.939148}, 3 },
+                { new double[]{6.4, 0.939148, 0.569210, 0.363803, 0.147959, 0.084853, 0.037210, 0, -0.029851}, 8 },
+                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 4 },
+                { new double[]{-3.997, -4.153, -4, -4.312, -6.937,  -5.113,  -5.917, -6.4}, 4 },
+                { new double[]{-3.997, -4.153, -4, 0, -4.312, -6.937,  -5.113,  -5.917, -6.4}, 5 },
+                { new double[]{7, 6.457, 5.533, 7.597, 4.825, 4.552, 4.333, 4.168, 4.057, 5.968, 4, 5.152}, 10 },
         };
     }
 
@@ -234,6 +234,58 @@ public class MainTestDataProvider {
                 { new double[]{6.4, 0.939148, 0.569210, 0.363803, 0.147959, 0.084853, 0.037210, 0, -0.029851}, 0.945815 },
                 { new double[]{-3.997, -4.153, -4, -4.312, -6.937,  -5.113,  -5.917, -6.4}, -5.103625 },
                 { new double[]{7, 6.457, 5.533, 7.597, 4.825, 4.552, 4.333, 4.168, 4.057, 5.968, 4, 5.152}, 5.3035 },
+        };
+    }
+
+
+
+    @DataProvider(name = "testDataPrintMaxValueByIndex")
+    private static Object[][] dataPrintMaxValueByIndex() {
+        return new Object[][] {
+
+//               arguments, maxValue
+                { new double[]{4, 3.649037, 0.940169}, 4 },
+                { new double[]{0}, 0 },
+                { new double[]{6.4, 4, 6.4}, 6.4},
+                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 6.4 },
+                { new double[]{-3.997, -4.153, -4, 0, -4.312, -6.937,  -5.113,  -5.917, -6.4}, 0 },
+        };
+    }
+
+    @DataProvider(name = "testDataPrintMaxValueByIndexFailed")
+    private static Object[][] dataPrintMaxValueByIndexFailed() {
+        return new Object[][] {
+
+//               arguments, maxValue
+                { new double[]{4, 3.649037, 0.940169}, 3.649037 },
+                { new double[]{6.4, 4, 6.4}, 4},
+                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 0.939148 },
+        };
+    }
+
+
+
+    @DataProvider(name = "testDataPrintMinValueByIndex")
+    private static Object[][] dataPrintMinValueByIndex() {
+        return new Object[][] {
+
+//               arguments, maxValue
+                { new double[]{4, 3.649037, 0.940169}, 0.940169 },
+                { new double[]{0}, 0 },
+                { new double[]{4, 6.4, 4}, 4},
+                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, -0.029851 },
+                { new double[]{-3.997, -4.153, -4, 0, -4.312, -6.937,  -5.113,  -5.917, -6.4}, -6.937 },
+        };
+    }
+
+    @DataProvider(name = "testDataPrintMinValueByIndexFailed")
+    private static Object[][] dataPrintMinValueByIndexFailed() {
+        return new Object[][] {
+
+//               arguments, maxValue
+                { new double[]{4, 3.649037, 0.940169}, 3.649037 },
+                { new double[]{4, 6.4, 4}, 6.4},
+                { new double[]{0.569210, 0.939148, 6.4, 0.235339, -0.029851, 0.147959, 0.084853, 0, 0.037210}, 0 },
         };
     }
 

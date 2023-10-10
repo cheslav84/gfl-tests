@@ -98,40 +98,40 @@ public class MainTest {
     }
 
 
-    @Test(dataProvider = "testDataGetMaxValue", dataProviderClass = MainTestDataProvider.class)
-    public void testGetMaxValue(double[] functionValues, double maxValue) {
-        assertThat(solver.getMaxValue(functionValues)).isCloseTo(maxValue, Percentage.withPercentage(0.3));
+    @Test(dataProvider = "testDataGetMaxValueIndex", dataProviderClass = MainTestDataProvider.class)
+    public void testGetMaxValueIndex(double[] functionValues, int index) {
+        assertThat(solver.getMaxValueIndex(functionValues)).isEqualTo(index);
     }
 
     @Test
     public void testGetMaxValueExceptionNull() {
-        assertThatThrownBy(() -> solver.getMaxValue(null))
+        assertThatThrownBy(() -> solver.getMaxValueIndex(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Array of functionValues is null.");
     }
 
     @Test
     public void testGetMaxValueExceptionEmpty() {
-        assertThatThrownBy(() -> solver.getMaxValue(new double[]{}))
+        assertThatThrownBy(() -> solver.getMaxValueIndex(new double[]{}))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Array is empty.");
     }
 
-    @Test(dataProvider = "testDataGetMinValue", dataProviderClass = MainTestDataProvider.class)
-    public void testGetMinValue(double[] functionValues, double maxValue) {
-        assertThat(solver.getMinValue(functionValues)).isCloseTo(maxValue, Percentage.withPercentage(0.3));
+    @Test(dataProvider = "testDataGetMinValueIndex", dataProviderClass = MainTestDataProvider.class)
+    public void testGetMinValue(double[] functionValues, int index) {
+        assertThat(solver.getMinValueIndex(functionValues)).isEqualTo(index);
     }
 
     @Test
     public void testGetMinValueExceptionNull() {
-        assertThatThrownBy(() -> solver.getMinValue(null))
+        assertThatThrownBy(() -> solver.getMinValueIndex(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Array of functionValues is null.");
     }
 
     @Test
     public void testGetMinValueExceptionEmpty() {
-        assertThatThrownBy(() -> solver.getMinValue(new double[]{}))
+        assertThatThrownBy(() -> solver.getMinValueIndex(new double[]{}))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Array is empty.");
     }
@@ -170,6 +170,48 @@ public class MainTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Array is empty.");
     }
+
+
+
+    @Test(dataProvider = "testDataPrintMaxValueByIndex", dataProviderClass = MainTestDataProvider.class)
+    public void testPrintMaxValueByIndex(double[] functionValues, double maxValue) {
+        TestStreamProvider.setUpOutputStream();
+        int index = solver.getMaxValueIndex(functionValues);
+        solver.printMaxValue(functionValues, index);
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isEqualTo(String.valueOf(maxValue));
+        TestStreamProvider.tearDownOutputStream();
+    }
+
+    @Test(dataProvider = "testDataPrintMaxValueByIndexFailed", dataProviderClass = MainTestDataProvider.class)
+    public void testPrintMaxValueByIndexFailed(double[] functionValues, double maxValue) {
+        TestStreamProvider.setUpOutputStream();
+        int index = solver.getMaxValueIndex(functionValues);
+        solver.printMaxValue(functionValues, index);
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isNotEqualTo(String.valueOf(maxValue));
+        TestStreamProvider.tearDownOutputStream();
+    }
+
+
+
+    @Test(dataProvider = "testDataPrintMinValueByIndex", dataProviderClass = MainTestDataProvider.class)
+    public void testPrintMainValueByIndex(double[] functionValues, double minValue) {
+        TestStreamProvider.setUpOutputStream();
+        int index = solver.getMinValueIndex(functionValues);
+        solver.printMinValue(functionValues, index);
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isEqualTo(String.valueOf(minValue));
+        TestStreamProvider.tearDownOutputStream();
+    }
+
+
+    @Test(dataProvider = "testDataPrintMinValueByIndexFailed", dataProviderClass = MainTestDataProvider.class)
+    public void testPrintMainValueByIndexFailed(double[] functionValues, double minValue) {
+        TestStreamProvider.setUpOutputStream();
+        int index = solver.getMinValueIndex(functionValues);
+        solver.printMinValue(functionValues, index);
+        assertThat(TestStreamProvider.getConsoleContent().toString()).isNotEqualTo(String.valueOf(minValue));
+        TestStreamProvider.tearDownOutputStream();
+    }
+
 
 
 
