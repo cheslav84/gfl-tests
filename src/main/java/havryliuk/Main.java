@@ -36,6 +36,8 @@ public class Main {
         return x < 1.4 - EPS ? solveFirst(x) : x > 1.4 + EPS ? solveThird(x) : solveSecond(x);
     }
 
+
+
     public int getArraySize(double start, double end, double interval) {
         if (start > end) throw new IllegalArgumentException("The start of array can't be larger than the end of it.");
         if (interval <= 0) throw new IllegalArgumentException("Interval should be greater than 0.");
@@ -100,6 +102,7 @@ public class Main {
         if (x < minPossibleValue) throw new IllegalArgumentException("The argument is too small to be evaluated.");
         return A * Math.pow(x, 2) + B * x + C;
     }
+
 
     private double solveSecond(double x) {
         return (A / x) + Math.sqrt(Math.pow(x, 2) + 1);
