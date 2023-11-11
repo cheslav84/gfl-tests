@@ -1,7 +1,7 @@
 package havryliuk;
 
 import havryliuk.function.CompoundFunction;
-import havryliuk.function.Function;
+
 import org.assertj.core.data.Offset;
 import org.assertj.core.data.Percentage;
 import org.testng.annotations.BeforeMethod;
@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.testng.Assert.*;
 
 public class FunctionSolverTest {
 
@@ -26,28 +25,24 @@ public class FunctionSolverTest {
     }
 
 
-
-
-
-
-    @Test(dataProvider = "testDataArraySize", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataArraySize", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testArraySize(double start, double end, double interval, int steps) {
         assertThat(solver.getArraySize(start, end, interval)).isEqualTo(steps);
     }
 
-    @Test(dataProvider = "testDataArraySizeNegative", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataArraySizeNegative", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testArraySizeNegative(double start, double end, double interval, int steps) {
         assertThat(solver.getArraySize(start, end, interval)).isNotEqualTo(steps);
     }
 
-    @Test(dataProvider = "testDataArraySizeStartLargerEndException", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataArraySizeStartLargerEndException", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testArraySizeStartLargerEndException(double start, double end, double interval) {
         assertThatThrownBy(() -> solver.getArraySize(start, end, interval))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("The start of array can't be larger than the end of it.");
     }
 
-    @Test(dataProvider = "testDataArraySizeIntervalNegativeOrZeroException", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataArraySizeIntervalNegativeOrZeroException", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testArraySizeIntervalNegativeOrZeroException(double start, double end, double interval) {
         assertThatThrownBy(() -> solver.getArraySize(start, end, interval))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -57,7 +52,7 @@ public class FunctionSolverTest {
 
 
 
-    @Test(dataProvider = "testDataGetArgumentsArray", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataGetArgumentsArray", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testGetArgumentsArray(double start, double end, double interval, double[] arr) {
         assertThat(solver.getArgumentsArray(start, end, interval))
                 .containsExactly(arr, Offset.offset(EPS))
@@ -69,7 +64,7 @@ public class FunctionSolverTest {
     }
 
 
-    @Test(dataProvider = "testDataGetFunctionValuesArray", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataGetFunctionValuesArray", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testGetFunctionValuesArray(double[] arguments, double[] functionValues) {
         assertThat(solver.getFunctionValuesArray(arguments))
                 .containsExactly(functionValues, Offset.offset(EPS));
@@ -84,7 +79,7 @@ public class FunctionSolverTest {
     }
 
 
-    @Test(dataProvider = "testDataGetMaxValueIndex", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataGetMaxValueIndex", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testGetMaxValueIndex(double[] functionValues, int index) {
         assertThat(solver.getMaxValueIndex(functionValues)).isEqualTo(index);
     }
@@ -103,7 +98,7 @@ public class FunctionSolverTest {
                 .hasMessageContaining("Array is empty.");
     }
 
-    @Test(dataProvider = "testDataGetMinValueIndex", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataGetMinValueIndex", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testGetMinValue(double[] functionValues, int index) {
         assertThat(solver.getMinValueIndex(functionValues)).isEqualTo(index);
     }
@@ -124,7 +119,7 @@ public class FunctionSolverTest {
 
 
 
-    @Test(dataProvider = "testDataGetSumOfValues", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataGetSumOfValues", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testGetSumOfValues(double[] functionValues, double sum) {
         assertThat(solver.getSumOfValues(functionValues)).isCloseTo(sum, Percentage.withPercentage(0.3));
     }
@@ -138,7 +133,7 @@ public class FunctionSolverTest {
 
 
 
-    @Test(dataProvider = "testDataGetAvgValue", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataGetAvgValue", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testGetAvgValue(double[] functionValues, double maxValue) {
         assertThat(solver.getAverage(functionValues)).isCloseTo(maxValue, Percentage.withPercentage(0.3));
     }
@@ -159,7 +154,7 @@ public class FunctionSolverTest {
 
 
 
-    @Test(dataProvider = "testDataPrintMaxValueByIndex", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataPrintMaxValueByIndex", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testPrintMaxValueByIndex(double[] functionValues, double maxValue) {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMaxValueIndex(functionValues);
@@ -169,7 +164,7 @@ public class FunctionSolverTest {
         TestStreamProvider.tearDownOutputStream();
     }
 
-    @Test(dataProvider = "testDataPrintMaxValueByIndexFailed", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataPrintMaxValueByIndexFailed", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testPrintMaxValueByIndexFailed(double[] functionValues, double maxValue) {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMaxValueIndex(functionValues);
@@ -181,7 +176,7 @@ public class FunctionSolverTest {
 
 
 
-    @Test(dataProvider = "testDataPrintMinValueByIndex", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataPrintMinValueByIndex", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testPrintMainValueByIndex(double[] functionValues, double minValue) {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMinValueIndex(functionValues);
@@ -192,7 +187,7 @@ public class FunctionSolverTest {
     }
 
 
-    @Test(dataProvider = "testDataPrintMinValueByIndexFailed", dataProviderClass = MainTestDataProvider.class)
+    @Test(dataProvider = "testDataPrintMinValueByIndexFailed", dataProviderClass = TestFunctionSolverDataProvider.class)
     public void testPrintMainValueByIndexFailed(double[] functionValues, double minValue) {
         TestStreamProvider.setUpOutputStream();
         int index = solver.getMinValueIndex(functionValues);

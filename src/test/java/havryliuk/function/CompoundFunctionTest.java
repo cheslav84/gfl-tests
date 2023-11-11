@@ -1,7 +1,5 @@
 package havryliuk.function;
 
-import havryliuk.Main;
-import havryliuk.MainTestDataProvider;
 import havryliuk.TestFunctionDataProvider;
 import org.assertj.core.data.Percentage;
 import org.testng.annotations.BeforeMethod;
@@ -9,7 +7,6 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.testng.Assert.*;
 
 public class CompoundFunctionTest {
     private static final double EPS = 1e-6;
