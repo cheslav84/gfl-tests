@@ -19,8 +19,8 @@ public class CompoundFunction implements Function {
 
     @Override
     public double solve(double x) {
-        return (x < COMPOUND_CONDITION - eps) ? firstFunction.solve(x)
-                : (x > COMPOUND_CONDITION + eps)
-                ? secondFunction.solve(x) : thirdFunction.solve(x);
+        return x < COMPOUND_CONDITION - eps ? firstFunction.solve(x)
+                : x > COMPOUND_CONDITION + eps ? thirdFunction.solve(x)
+                : secondFunction.solve(x);
     }
 }

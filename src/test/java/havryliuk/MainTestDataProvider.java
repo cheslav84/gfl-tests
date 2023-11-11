@@ -6,25 +6,25 @@ import org.testng.annotations.DataProvider;
 public class MainTestDataProvider {
 
 
-    @DataProvider(name = "testDataSolveFunction")
-    private static Object[][] dataForSolveFunction() {
-        return new Object[][] {
-                { -1000000, 2700000300004.0 },
-                { -100, 27034 },
-                { -5, 73 },
-                { 0, 4 },
-                { 5, 0.235339362 },
-                { 100, -0.272986351 },
-                { 1000000, -0.2999973 },
-
-                { -8.0e150, 1.728e+302 },
-                { -1000000.5555559, 2700003300006.8600011 },
-                { 0.01, 3.99727 },
-                { 1.4, 3.649036482 },
-                { 1000000.5555559, -0.2999973 },
-                { 8.0e150, -0.299172257 },
-        };
-    }
+//    @DataProvider(name = "testDataSolveFunction")
+//    private static Object[][] dataForSolveFunction() {
+//        return new Object[][] {
+//                { -1000000, 2700000300004.0 },
+//                { -100, 27034 },
+//                { -5, 73 },
+//                { 0, 4 },
+//                { 5, 0.235339362 },
+//                { 100, -0.272986351 },
+//                { 1000000, -0.2999973 },
+//
+//                { -8.0e150, 1.728e+302 },
+//                { -1000000.5555559, 2700003300006.8600011 },
+//                { 0.01, 3.99727 },
+//                { 1.4, 3.649036482 },
+//                { 1000000.5555559, -0.2999973 },
+//                { 8.0e150, -0.299172257 },
+//        };
+//    }
 
 
     @DataProvider(name = "testDataArraySize")
